@@ -8,3 +8,10 @@
     border: 1px solid black;
     margin: 10em auto;
 }
+
+body, html {
+    /* background-color: black; */
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Ngăn scroll bar xuất hiện */
+}
