@@ -8,16 +8,35 @@ const gameState = {
     getReady: 0,
     inGame: 1,
     gameOver: 2,
-    current: 0,
+    current: 1,
 }
 
+const DIRECTION_RIGHT = 0;
+const DIRECTION_LEFT = 1;
+const DIRECTION_UP = 2;
+const DIRECTION_DOWN = 3;
 //CONTROL GAME STATE
-canvasElement.addEventListener("click", function(event) {
+let a="h";
+window.addEventListener("keydown", function(event) {
+    let k = event.key;
     switch (gameState.current) {
         case gameState.getReady:
             gameState.current = gameState.inGame;
             break;
         case gameState.inGame:
+            if (k == 'a' || k == "ArrowLeft") {
+                // left arrow or a
+                pacman.nextDirection = DIRECTION_LEFT;
+            } else if (k == 'w' || k == "ArrowUp") {
+                // up arrow or w
+                pacman.nextDirection = DIRECTION_UP;
+            } else if (k == 'd' || k == "ArrowRight") {
+                // right arrow or d
+                pacman.nextDirection = DIRECTION_RIGHT;
+            } else if (k == 's' || k == "ArrowDown") {
+                // bottom arrow or s
+                pacman.nextDirection = DIRECTION_DOWN;
+            }
             break;
         case gameState.gameOver:
             break;
@@ -68,15 +87,13 @@ function drawWalls() {
 
         }
     }
-    canvasContex.strokeStyle = "#342DCA";
-    canvasContex.lineWidth = oneBlockSize;
+    // canvasContex.strokeStyle = "#342DCA";
+    // canvasContex.lineWidth = oneBlockSize;
     //canvasContex.strokeRect(0, 0, oneBlockSize*(map[0].length), oneBlockSize*(map.length));
 }
 
 ///////////////// INIT /////////////////
 let pacman = new Pacman(oneBlockSize, oneBlockSize, oneBlockSize, oneBlockSize);
-let img = new Image();
-img.src = "assets/images/animations.gif";
 ////////////////////////////////////////
 
 function draw() {
