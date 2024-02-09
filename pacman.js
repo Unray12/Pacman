@@ -27,8 +27,8 @@ class Pacman {
         this.x += (this.width / 2);
         this.y += (this.height / 2);
     }
-    
 
+    //Idea: go forward if collision go backward//check 4 coner of pacman
     checkWallCollision() {
         //check top right
         if (map[parseInt((this.y-this.height/2-this.toleranceWallCollision)/oneBlockSize)][parseInt((this.x+this.width/2+this.toleranceWallCollision)/oneBlockSize)] == 1)
@@ -54,9 +54,6 @@ class Pacman {
             this.moveBackward();
             this.direction = temp;
         }
-        else 
-            console.log("hello");
-        
     }
 
     moveForward() {
@@ -114,6 +111,17 @@ class Pacman {
             this.moveBackward();
     }
 
+    eat() {
+        //let currentXmap = Math.round(this.x/oneBlockSize-1);
+        let currentXmap = parseInt(this.x/oneBlockSize);
+        // console.log(currentXmap);
+        //let currentYmap = Math.round(this.y/oneBlockSize-1);
+        let currentYmap = parseInt(this.y/oneBlockSize);
+        // console.log(currentYmap);
+        if (map[currentYmap][currentXmap] == 2)
+            map[currentYmap][currentXmap] = 0;
+    }
+
     draw() {
         canvasContex.save();
         canvasContex.translate(this.x, this.y);
@@ -131,6 +139,7 @@ class Pacman {
         this.frame = this.frame % 7;
         if (gameState.current == gameState.inGame) {
             this.moveProcess();
+            this.eat();
         }
     }
 }

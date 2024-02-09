@@ -71,10 +71,24 @@ let map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
+const food = {
+    radius: 2,
+    draw: function(x, y) {
+        canvasContex.beginPath();
+        canvasContex.arc(x, y, this.radius, 0, 360*DEGREE);
+        canvasContex.fillStyle = "#FEB897";
+        canvasContex.fill();
+        canvasContex.lineWidth = 0;
+        canvasContex.strokeStyle = "#FEB897";
+        canvasContex.stroke();
+    }
+}
+
 function createRect(x, y, width, height, color="") {
     canvasContex.fillStyle = color;
     canvasContex.fillRect(x, y, width, height);
 }
+
 function drawWalls() {
     for (let i = 0; i < map.length; i++) {
         for (let j = 0; j < map[0].length; j++) {
@@ -94,12 +108,21 @@ function drawWalls() {
 
 ///////////////// INIT /////////////////
 let pacman = new Pacman(oneBlockSize, oneBlockSize, oneBlockSize, oneBlockSize);
+
 ////////////////////////////////////////
 
 function draw() {
     createRect(0, 0, canvasElement.width, canvasElement.height, "black");
     drawWalls();
+    for (let i = 0; i < map.length; i++) {
+        for (let j = 0; j < map[0].length; j++) {
+            if (map[i][j] == 2)
+                food.draw(j * oneBlockSize + oneBlockSize / 2, i *oneBlockSize + oneBlockSize / 2);
+        }    
+    }
     pacman.draw();
+
+    
 }
 
 function updateImage() {
