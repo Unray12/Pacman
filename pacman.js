@@ -10,7 +10,7 @@ class Pacman {
     pacImg = new Image();
     direction = 0;
     rotation = 0;
-    toleranceWallCollision = -0.1;
+    toleranceWallCollision = -0.001;
     nextDirection = DIRECTION_RIGHT;
 
     constructor(x, y, width, height) {
@@ -28,53 +28,35 @@ class Pacman {
         this.y += (this.height / 2);
     }
     
-    checkCollisionLeft(toleranceCollision=this.toleranceWallCollision) {
-        if (//this.direction == DIRECTION_LEFT &&
-            map[parseInt(this.y/oneBlockSize)][parseInt((this.x-this.width/2-toleranceCollision)/oneBlockSize)] == 1) {
-                return true;
-            }
+
+    checkWallCollision() {
+        //check top right
+        if (map[parseInt((this.y-this.height/2-this.toleranceWallCollision)/oneBlockSize)][parseInt((this.x+this.width/2+this.toleranceWallCollision)/oneBlockSize)] == 1)
+            return true;
+        //check bottom right
+        if (map[parseInt((this.y+this.height/2+this.toleranceWallCollision)/oneBlockSize)][parseInt((this.x+this.width/2+this.toleranceWallCollision)/oneBlockSize)] == 1)
+            return true;
+        //check top left
+        if (map[parseInt((this.y-this.height/2-this.toleranceWallCollision)/oneBlockSize)][parseInt((this.x-this.width/2-this.toleranceWallCollision)/oneBlockSize)] == 1)
+            return true;
+        //check bottom left
+        if (map[parseInt((this.y+this.height/2+this.toleranceWallCollision)/oneBlockSize)][parseInt((this.x-this.width/2-this.toleranceWallCollision)/oneBlockSize)] == 1)
+            return true;
         return false;
-    }
-
-    checkCollisionRight(toleranceCollision=this.toleranceWallCollision) {
-        if (//this.direction == DIRECTION_RIGHT &&
-            map[parseInt(this.y/oneBlockSize)][parseInt((this.x+this.width/2+toleranceCollision)/oneBlockSize)] == 1) {
-                return true;
-            }
-        return false;    
-    }
-
-    checkCollisionUp(toleranceCollision=this.toleranceWallCollision) {
-        if (//this.direction == DIRECTION_UP &&
-            map[parseInt((this.y-this.height/2-toleranceCollision)/oneBlockSize)][parseInt(this.x/oneBlockSize)] == 1) {
-                return true;
-            }
-        return false;
-    }
-
-    checkCollisionDown(toleranceCollision=this.toleranceWallCollision) {
-        if (//this.direction == DIRECTION_DOWN &&
-            map[parseInt((this.y+this.height/2+toleranceCollision)/oneBlockSize)][parseInt(this.x/oneBlockSize)] == 1) {
-                return true;
-            }
-        return false;
-    }
-
-    checkWallCollision(toleranceCollision=this.toleranceWallCollision) {
-        let result = this.checkCollisionLeft(toleranceCollision) || this.checkCollisionRight(toleranceCollision) ||
-        this.checkCollisionUp(toleranceCollision) || this.checkCollisionDown(toleranceCollision);
-        return result;
     }
 
     changeDirectionIfPossible() {
         if (this.direction == this.nextDirection) return;
         let temp = this.direction;
         this.direction = this.nextDirection;
-        if (this.checkWallCollision())
+        this.moveForward();
+        if (this.checkWallCollision()) {
+            this.moveBackward();
             this.direction = temp;
-    }
-    setRotation(angle) {
-        this.rotation = angle;
+        }
+        else 
+            console.log("hello");
+        
     }
 
     moveForward() {
@@ -96,7 +78,7 @@ class Pacman {
                 this.rotation = 90;
                 break;
             default:
-                console.log("moveProcess error");
+                console.log("moveForward error");
                 break;
         }
     }
@@ -105,29 +87,33 @@ class Pacman {
         switch (this.direction) {
             case DIRECTION_RIGHT:
                 this.x -= this.speed;
-                this.rotation = 0;
+                //this.rotation = 0;
                 break;
             case DIRECTION_LEFT:
                 this.x += this.speed;
-                this.rotation = 180;
+                //this.rotation = 180;
                 break;
             case DIRECTION_UP:
                 this.y += this.speed;
-                this.rotation = -90;
+                //this.rotation = -90;
                 break;
             case DIRECTION_DOWN:
                 this.y -= this.speed;
-                this.rotation = 90;
+                //this.rotation = 90;
                 break;
             default:
-                console.log("moveProcess error");
+                console.log("moveBackward error error");
                 break;
         }
     }
 
     moveProcess() {
+        this.changeDirectionIfPossible();
         this.moveForward();
+        if (this.checkWallCollision())
+            this.moveBackward();
     }
+
     draw() {
         canvasContex.save();
         canvasContex.translate(this.x, this.y);
@@ -144,9 +130,7 @@ class Pacman {
         this.frame += (frames % periodUpdate == 0) ? 1 : 0;
         this.frame = this.frame % 7;
         if (gameState.current == gameState.inGame) {
-            this.changeDirectionIfPossible();
-            if (!this.checkWallCollision())
-                this.moveProcess();
+            this.moveProcess();
         }
     }
 }
