@@ -1,16 +1,7 @@
-class Ghost {
-    sX = 0;
-    sY = 0;
-    x = 0;
-    y = 0;
-    width = 0;
-    height = 0;
-    constructor(sX, sY, x, y, width, height) {
-        this.sX = sX;
-        this.xY = sY;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+class Ghost extends Monster {
+
+    constructor(sX, sY, x, y, sWidth=124, sHeight=116, width=oneBlockSize, height=oneBlockSize) {
+        super(sX, sY, x, y, sWidth, sHeight, width, height);
+        this.monsterSprite.src = "assets/images/ghost.png";
     }
 }

@@ -13,6 +13,14 @@ class Pacman {
     toleranceWallCollision = -0.001;
     nextDirection = DIRECTION_RIGHT;
 
+    score = {
+        bestScore: parseInt(localStorage.getItem("bestScore")) || 0,
+        currentScore: 0,
+        draw: function() {
+            
+        }
+    }
+
     constructor(x, y, width, height) {
         this.x = x;
         this.y = y;
@@ -118,8 +126,10 @@ class Pacman {
         //let currentYmap = Math.round(this.y/oneBlockSize-1);
         let currentYmap = parseInt(this.y/oneBlockSize);
         // console.log(currentYmap);
-        if (map[currentYmap][currentXmap] == 2)
+        if (map[currentYmap][currentXmap] == 2) {
             map[currentYmap][currentXmap] = 0;
+            this.score.currentScore += 1;
+        }
     }
 
     draw() {

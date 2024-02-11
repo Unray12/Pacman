@@ -105,10 +105,19 @@ function drawWalls() {
     // canvasContex.lineWidth = oneBlockSize;
     //canvasContex.strokeRect(0, 0, oneBlockSize*(map[0].length), oneBlockSize*(map.length));
 }
-
+spriteGhostLocation = [
+    {x: 0, y: 0},
+    {x: 176, y: 0},
+    {x: 0, y: 121},
+    {x: 176, y: 121},
+]
 ///////////////// INIT /////////////////
 let pacman = new Pacman(oneBlockSize, oneBlockSize, oneBlockSize, oneBlockSize);
 
+let redGhost = new Ghost(0, 0, oneBlockSize * 9, oneBlockSize * 11);
+let orangeGhost = new Ghost(176, 0, oneBlockSize * 10, oneBlockSize * 11);
+let pinkGhost = new Ghost(0, 121, oneBlockSize * 11, oneBlockSize * 11);
+let blueGhost = new Ghost(176, 121, oneBlockSize * 10, oneBlockSize * 10);
 ////////////////////////////////////////
 
 function draw() {
@@ -121,6 +130,10 @@ function draw() {
         }    
     }
     pacman.draw();
+    redGhost.draw();
+    orangeGhost.draw();
+    pinkGhost.draw();
+    blueGhost.draw();
 
     
 }
