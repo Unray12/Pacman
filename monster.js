@@ -9,7 +9,7 @@ class Monster {
     height =0;
     monsterSprite = new Image();
 
-    constructor(sX, sY, x, y, sWidth, sHeight, width, height) {
+    constructor(mainCharacter, sX, sY, x, y, sWidth, sHeight, width, height) {
         this.sX = sX;
         this.sY = sY;
         this.x = x;
@@ -18,6 +18,7 @@ class Monster {
         this.sHeight = sHeight;
         this.width = width;
         this.height = height;
+        this.mainCharacter = mainCharacter;
     }
 
     draw() {
