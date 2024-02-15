@@ -19,10 +19,16 @@ class Monster {
         this.width = width;
         this.height = height;
         this.mainCharacter = mainCharacter;
+        this.centerAnchor();
+    }
+    
+    centerAnchor() {
+        this.x += (this.width / 2);
+        this.y += (this.height / 2);
     }
 
     draw() {
         canvasContex.drawImage(this.monsterSprite, this.sX, this.sY, this.sWidth, this.sHeight, 
-            this.x, this.y, this.width, this.height);
+            this.x-this.width/2, this.y-this.height/2, this.width, this.height);
     }
 }

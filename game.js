@@ -152,6 +152,10 @@ function draw() {
 
 function updateImage() {
     pacman.updateImage();
+    redGhost.updateImage();
+    orangeGhost.updateImage();
+    pinkGhost.updateImage();
+    blueGhost.updateImage();
 }
 
 function gameLoop() {
