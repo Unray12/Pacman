@@ -39,6 +39,7 @@ window.addEventListener("keydown", function(event) {
             }
             break;
         case gameState.gameOver:
+            console.log("game over");
             break;
         default:
             console.log("error");

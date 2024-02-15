@@ -27,6 +27,14 @@ class Monster {
         this.y += (this.height / 2);
     }
 
+    getMapX() {
+        return parseInt(this.x / oneBlockSize);
+    }
+
+    getMapY() {
+        return parseInt(this.y / oneBlockSize);
+    }
+    
     draw() {
         canvasContex.drawImage(this.monsterSprite, this.sX, this.sY, this.sWidth, this.sHeight, 
             this.x-this.width/2, this.y-this.height/2, this.width, this.height);

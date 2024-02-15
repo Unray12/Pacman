@@ -36,6 +36,14 @@ class Pacman {
         this.y += (this.height / 2);
     }
 
+    getMapX() {
+        return parseInt(this.x / oneBlockSize);
+    }
+
+    getMapY() {
+        return parseInt(this.y / oneBlockSize);
+    }
+
     //Idea: go forward if collision go backward//check 4 coner of pacman
     checkWallCollision() {
         //check top right
@@ -121,10 +129,10 @@ class Pacman {
 
     eat() {
         //let currentXmap = Math.round(this.x/oneBlockSize-1);
-        let currentXmap = parseInt(this.x/oneBlockSize);
+        let currentXmap = this.getMapX();
         // console.log(currentXmap);
         //let currentYmap = Math.round(this.y/oneBlockSize-1);
-        let currentYmap = parseInt(this.y/oneBlockSize);
+        let currentYmap = this.getMapY();
         // console.log(currentYmap);
         if (map[currentYmap][currentXmap] == 2) {
             map[currentYmap][currentXmap] = 0;
